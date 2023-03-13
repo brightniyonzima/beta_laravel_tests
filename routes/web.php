@@ -31,13 +31,15 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
+
 //redirected to this when the user click the sent link
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
     //return redirect('/home');
     return redirect('/dashboard');
-})->middleware(['auth', 'signed', 'verified'])->name('verification.verify');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
 
 //handles resent email verification link incase user needs to be resent
 Route::post('/email/verification-notification', function (Request $request) {
